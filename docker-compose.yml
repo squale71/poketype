@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  poketype.service:
+    image: ${DOCKER_REGISTRY-}poketypeservice
+    build:
+      context: .
+      dockerfile: Poketype.Service/Dockerfile
+    environment:
+      POKETYPE_ConnectionStrings__Database: ${Poketype.Database}
