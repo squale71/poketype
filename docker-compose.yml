@@ -7,4 +7,4 @@ services:
       context: .
       dockerfile: Poketype.Service/Dockerfile
     environment:
-      POKETYPE_ConnectionStrings__Database: ${Poketype.Database}
+      POKETYPE_ConnectionStrings__Database: ${Poketype_Database}

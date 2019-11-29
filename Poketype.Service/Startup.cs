@@ -9,9 +9,7 @@ namespace Poketype.Service
 {
     public class Startup
     {
-        private readonly ILogger _logger;
-
-        public Startup(IConfiguration configuration, IHostEnvironment env, ILogger<Startup> logger)
+        public Startup(IConfiguration configuration, IHostEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(System.IO.Directory.GetCurrentDirectory())
@@ -20,7 +18,6 @@ namespace Poketype.Service
                 .AddEnvironmentVariables("POKETYPE_");
 
             Configuration = builder.Build();
-            _logger = logger;
         }
 
         public IConfiguration Configuration { get; }
