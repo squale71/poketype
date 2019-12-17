@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System.Collections.Generic;
 
 namespace Poketype.Service.Data.Models
 {
@@ -14,5 +15,17 @@ namespace Poketype.Service.Data.Models
 
         [BsonElement("description")]
         public string Description { get; set; }
+
+        [BsonElement("attackMatchups")]
+        public IEnumerable<PokemonTypeModifier> AttackMatchups { get; set; }
+
+        [BsonElement("defenseMatchups")]
+        public IEnumerable<PokemonTypeModifier> DefenseMatchups { get; set; }
+
+        [BsonElement("hexColor")]
+        public string HexColor { get; set; }
+
+        [BsonElement("displayName")]
+        public string DisplayName { get; set; }
     }
 }
