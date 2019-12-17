@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Poketype.Service.Data.Models;
 using Poketype.Service.Repositories;
+using Swashbuckle.AspNetCore.Swagger;
 using System.Linq;
 
 namespace Poketype.Service
@@ -30,6 +31,7 @@ namespace Poketype.Service
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddRouting(options => options.LowercaseUrls = true);
             services.AddControllers();
 
             // requires using Microsoft.Extensions.Options
@@ -38,6 +40,17 @@ namespace Poketype.Service
 
             services.AddSingleton<IPoketypeDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<PoketypeDatabaseSettings>>().Value);
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "PokeType API",
+                    Description = "API for getting information about Pokemon"
+                });
+
+            });
 
             services.AddScoped<TypeRepository>();
         }
@@ -59,6 +72,12 @@ namespace Poketype.Service
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Poketype API");
             });
         }
     }
