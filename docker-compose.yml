@@ -7,4 +7,15 @@ services:
       context: .
       dockerfile: Poketype.Service/Dockerfile
     environment:
-      POKETYPE_ConnectionStrings__Database: ${Poketype_Database}
+      POKETYPE_PoketypeDatabaseSettings__ConnectionString: ${Poketype_Database}
+      MongoDB__Host: mongo
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${Poketype_MongoUsername}
+      MONGO_INITDB_ROOT_PASSWORD: ${Poketype_MongoPassword}
+    ports:
+      - 27017:27017

@@ -1,9 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Poketype.Service.Data.Models;
+using Poketype.Service.Repositories;
+using System.Linq;
 
 namespace Poketype.Service
 {
@@ -26,6 +31,15 @@ namespace Poketype.Service
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            // requires using Microsoft.Extensions.Options
+            services.Configure<PoketypeDatabaseSettings>(
+                Configuration.GetSection(nameof(PoketypeDatabaseSettings)));
+
+            services.AddSingleton<IPoketypeDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<PoketypeDatabaseSettings>>().Value);
+
+            services.AddScoped<TypeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
