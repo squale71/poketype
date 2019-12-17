@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace Poketype.Service.Repositories
 {
-    public class TypeRepository
+    public class PokemonTypeRepository
     {
         private readonly IMongoCollection<PokemonType> _types;
 
-        public TypeRepository(IPoketypeDatabaseSettings settings)
+        public PokemonTypeRepository(IPoketypeDatabaseSettings settings)
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);

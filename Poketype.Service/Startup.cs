@@ -52,7 +52,7 @@ namespace Poketype.Service
 
             });
 
-            services.AddScoped<TypeRepository>();
+            services.AddScoped<PokemonTypeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
